@@ -1,0 +1,71 @@
+---
+import { siteConfig } from "../config";
+const { name, title, tagline, stats, social } = siteConfig;
+---
+
+<section id="hero" class="min-h-screen flex items-center bg-[var(--color-surface-light)] relative overflow-hidden">
+  <!-- Subtle decorative circles -->
+  <div class="absolute top-20 right-10 w-64 h-64 rounded-full bg-[var(--color-sage)] opacity-[0.06] blur-3xl"></div>
+  <div class="absolute bottom-20 left-10 w-48 h-48 rounded-full bg-[var(--color-accent)] opacity-[0.05] blur-3xl"></div>
+
+  <div class="max-w-6xl mx-auto px-6 py-20 md:py-28 w-full">
+    <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+      <!-- Photo -->
+      <div class="hero-photo flex-shrink-0">
+        <div class="w-56 h-56 md:w-72 md:h-72 rounded-2xl overflow-hidden shadow-xl ring-4 ring-white/80">
+          <img
+            src="/profile.jpg"
+            alt={name}
+            class="w-full h-full object-cover object-top"
+            loading="eager"
+          />
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="text-center md:text-left flex-1">
+        <h1 class="hero-title font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-primary-dark)] leading-tight tracking-tight">
+          {name.split(' ').slice(0, 1)}<br class="hidden md:block" />
+          <span class="text-[var(--color-primary-light)]">{name.split(' ').slice(1).join(' ')}</span>
+        </h1>
+
+        <p class="hero-subtitle mt-4 text-lg md:text-xl text-[var(--color-primary)] font-body font-medium" data-en={title.en} data-es={title.es}>
+          {title.en}
+        </p>
+
+        <p class="hero-description mt-4 text-base md:text-lg text-[var(--color-primary-light)] font-body italic max-w-lg" data-en={tagline.en} data-es={tagline.es}>
+          "{tagline.en}"
+        </p>
+
+        <!-- CTA + Social -->
+        <div class="hero-cta mt-8 flex flex-col sm:flex-row items-center gap-4 md:justify-start justify-center">
+          <a
+            href="#contact"
+            class="btn-hover inline-flex items-center gap-2 bg-[var(--color-accent)] text-white font-body font-semibold px-8 py-3.5 rounded-full shadow-lg hover:shadow-xl transition-all text-sm tracking-wide"
+            data-en="Let's Connect" data-es="Conectemos"
+          >
+            Let's Connect
+          </a>
+          {social.linkedin && (
+            <a href={social.linkedin} target="_blank" rel="noopener" class="icon-hover inline-flex items-center justify-center w-11 h-11 rounded-full border-2 border-[var(--color-primary-light)]/30 text-[var(--color-primary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors" aria-label="LinkedIn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            </a>
+          )}
+          <a href={`mailto:${social.email}`} class="icon-hover inline-flex items-center justify-center w-11 h-11 rounded-full border-2 border-[var(--color-primary-light)]/30 text-[var(--color-primary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors" aria-label="Email">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="hero-stats mt-14 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto md:mx-0">
+      {stats.map((stat, i) => (
+        <div class={`text-center md:text-left stagger-${i + 1}`}>
+          <div class="text-2xl md:text-3xl font-heading font-bold text-[var(--color-accent)]">{stat.value}</div>
+          <div class="text-xs md:text-sm text-[var(--color-primary-light)] font-body mt-1 uppercase tracking-wider" data-en={stat.label.en} data-es={stat.label.es}>{stat.label.en}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

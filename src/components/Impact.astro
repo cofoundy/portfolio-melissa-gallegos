@@ -1,0 +1,76 @@
+---
+import { siteConfig } from "../config";
+const { impact } = siteConfig;
+---
+
+<section id="impact" class="py-20 md:py-28 bg-[var(--color-primary-dark)] text-white relative overflow-hidden">
+  <!-- Decorative -->
+  <div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-[var(--color-primary-light)] opacity-[0.05] blur-3xl"></div>
+  <div class="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-[var(--color-accent)] opacity-[0.04] blur-3xl"></div>
+
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <h2 class="reveal font-heading text-3xl md:text-4xl font-bold text-white text-center" data-en="Impact" data-es="Impacto">
+      Impact
+    </h2>
+    <div class="w-16 h-1 bg-[var(--color-accent)] mx-auto mt-4 rounded-full"></div>
+
+    <!-- Counters -->
+    <div class="mt-14 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+      {impact.numbers.map((item, i) => (
+        <div class={`reveal stagger-${i + 1} text-center`}>
+          <div class="counter-value text-4xl md:text-5xl font-heading font-bold text-[var(--color-accent)]" data-target={item.value.replace(/,/g, '')} data-suffix={item.suffix}>
+            0{item.suffix}
+          </div>
+          <div class="mt-3 text-sm md:text-base text-white/80 font-body uppercase tracking-wider" data-en={item.label.en} data-es={item.label.es}>
+            {item.label.en}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Client Logos / Names -->
+    <div class="mt-16 reveal">
+      <p class="text-center text-xs uppercase tracking-[0.2em] text-white/40 mb-8" data-en="Trusted By" data-es="Confían en mí">Trusted By</p>
+      <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+        {impact.clients.map(client => (
+          <span class="text-sm md:text-base font-body font-medium text-white/50 hover:text-white/80 transition-colors">
+            {client}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // CountUp animation
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target as HTMLElement;
+        const target = parseInt(el.dataset.target || '0');
+        const suffix = el.dataset.suffix || '';
+        let current = 0;
+        const duration = 2000;
+        const increment = target / (duration / 16);
+
+        const update = () => {
+          current += increment;
+          if (current >= target) {
+            el.textContent = target.toLocaleString() + suffix;
+          } else {
+            el.textContent = Math.floor(current).toLocaleString() + suffix;
+            requestAnimationFrame(update);
+          }
+        };
+
+        requestAnimationFrame(update);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.counter-value').forEach(el => {
+    counterObserver.observe(el);
+  });
+</script>

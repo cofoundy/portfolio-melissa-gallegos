@@ -1,0 +1,49 @@
+---
+import { siteConfig } from "../config";
+const { cta, social, name } = siteConfig;
+---
+
+<section id="contact" class="py-20 md:py-28 bg-[var(--color-primary-dark)] text-white relative overflow-hidden">
+  <!-- Decorative -->
+  <div class="absolute top-10 left-10 w-48 h-48 rounded-full bg-[var(--color-accent)] opacity-[0.04] blur-3xl"></div>
+
+  <div class="max-w-3xl mx-auto px-6 text-center relative z-10">
+    <p class="reveal font-accent text-2xl md:text-3xl lg:text-4xl italic text-white/90 leading-relaxed quote-float" data-en={`"${cta.quote.en}"`} data-es={`"${cta.quote.es}"`}>
+      "{cta.quote.en}"
+    </p>
+
+    <a
+      href={`mailto:${social.email}`}
+      class="reveal stagger-1 btn-hover inline-flex items-center gap-2 bg-[var(--color-accent)] text-white font-body font-semibold px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition-all text-base tracking-wide mt-10"
+      data-en={cta.buttonText.en} data-es={cta.buttonText.es}
+    >
+      {cta.buttonText.en}
+    </a>
+
+    <div class="reveal stagger-2 mt-8">
+      <a href={`mailto:${social.email}`} class="text-white/70 hover:text-white transition-colors font-body text-sm">
+        {social.email}
+      </a>
+    </div>
+
+    <div class="reveal stagger-3 mt-6 flex items-center justify-center gap-4">
+      {social.linkedin && (
+        <a href={social.linkedin} target="_blank" rel="noopener" class="icon-hover inline-flex items-center justify-center w-11 h-11 rounded-full border-2 border-white/20 text-white/70 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors" aria-label="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        </a>
+      )}
+      <a href={`mailto:${social.email}`} class="icon-hover inline-flex items-center justify-center w-11 h-11 rounded-full border-2 border-white/20 text-white/70 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors" aria-label="Email">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-[var(--color-primary-dark)] border-t border-white/10 py-6">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <p class="text-white/40 text-xs font-body">
+      &copy; 2026 {name}. Built with ♡ by <a href="https://cofoundy.com" target="_blank" rel="noopener" class="text-white/50 hover:text-white/70 transition-colors">Cofoundy</a>
+    </p>
+  </div>
+</footer>

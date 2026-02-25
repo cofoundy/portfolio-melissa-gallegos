@@ -1,0 +1,118 @@
+---
+import { siteConfig } from "../config";
+---
+
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true">
+  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="mobile-menu-backdrop"></div>
+  <nav class="absolute right-0 top-0 h-full w-72 bg-[var(--color-surface-light)] shadow-2xl p-8 pt-20 flex flex-col gap-6">
+    <button id="mobile-menu-close" class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center text-[var(--color-primary-dark)]" aria-label="Close menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <a href="#approach" class="nav-mobile-link text-lg font-medium text-[var(--color-primary-dark)] hover:text-[var(--color-accent)] transition-colors" data-en="Approach" data-es="Enfoque">Approach</a>
+    <a href="#services" class="nav-mobile-link text-lg font-medium text-[var(--color-primary-dark)] hover:text-[var(--color-accent)] transition-colors" data-en="Services" data-es="Servicios">Services</a>
+    <a href="#impact" class="nav-mobile-link text-lg font-medium text-[var(--color-primary-dark)] hover:text-[var(--color-accent)] transition-colors" data-en="Impact" data-es="Impacto">Impact</a>
+    <a href="#journey" class="nav-mobile-link text-lg font-medium text-[var(--color-primary-dark)] hover:text-[var(--color-accent)] transition-colors" data-en="Journey" data-es="Trayectoria">Journey</a>
+    <a href="#credentials" class="nav-mobile-link text-lg font-medium text-[var(--color-primary-dark)] hover:text-[var(--color-accent)] transition-colors" data-en="Credentials" data-es="Credenciales">Credentials</a>
+    <a href="#contact" class="nav-mobile-link text-lg font-medium text-[var(--color-accent)] hover:opacity-80 transition-opacity" data-en="Contact" data-es="Contacto">Contact</a>
+  </nav>
+</div>
+
+<!-- Floating Nav -->
+<header id="main-nav" class="fixed top-4 left-1/2 -translate-x-1/2 z-40 opacity-0 pointer-events-none transition-all duration-300">
+  <div class="bg-white/90 backdrop-blur-md rounded-full px-6 py-3 shadow-lg border border-gray-100 flex items-center gap-6">
+    <span class="font-heading font-semibold text-[var(--color-primary-dark)] text-sm tracking-wide hidden sm:block">MGA</span>
+
+    <nav class="hidden md:flex items-center gap-5">
+      <a href="#approach" class="nav-link text-sm text-[var(--color-primary)] hover:text-[var(--color-accent)] transition-colors" data-en="Approach" data-es="Enfoque">Approach</a>
+      <a href="#services" class="nav-link text-sm text-[var(--color-primary)] hover:text-[var(--color-accent)] transition-colors" data-en="Services" data-es="Servicios">Services</a>
+      <a href="#impact" class="nav-link text-sm text-[var(--color-primary)] hover:text-[var(--color-accent)] transition-colors" data-en="Impact" data-es="Impacto">Impact</a>
+      <a href="#journey" class="nav-link text-sm text-[var(--color-primary)] hover:text-[var(--color-accent)] transition-colors" data-en="Journey" data-es="Trayectoria">Journey</a>
+      <a href="#credentials" class="nav-link text-sm text-[var(--color-primary)] hover:text-[var(--color-accent)] transition-colors" data-en="Credentials" data-es="Credenciales">Credentials</a>
+      <a href="#contact" class="nav-link text-sm font-medium text-[var(--color-accent)] hover:opacity-80 transition-opacity" data-en="Contact" data-es="Contacto">Contact</a>
+    </nav>
+
+    <!-- Language Switcher -->
+    <button id="lang-toggle" class="flex items-center gap-1 bg-[var(--color-surface)] rounded-full px-3 py-1.5 text-xs font-medium text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-dark)] hover:text-white transition-colors" aria-label="Toggle language">
+      <span id="lang-label">EN</span>
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5l3 3 3-3"/></svg>
+    </button>
+
+    <!-- Mobile Hamburger -->
+    <button id="mobile-menu-open" class="md:hidden w-8 h-8 flex items-center justify-center text-[var(--color-primary-dark)]" aria-label="Open menu">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="5" x2="17" y2="5"/><line x1="3" y1="10" x2="17" y2="10"/><line x1="3" y1="15" x2="17" y2="15"/></svg>
+    </button>
+  </div>
+</header>
+
+<script>
+  // Floating nav visibility
+  const nav = document.getElementById('main-nav');
+  let lastScrollY = 0;
+
+  const handleScroll = () => {
+    const scrollY = window.scrollY;
+    if (nav) {
+      if (scrollY > 400) {
+        nav.classList.remove('opacity-0', 'pointer-events-none');
+        nav.classList.add('opacity-100', 'pointer-events-auto', 'header-visible');
+      } else {
+        nav.classList.add('opacity-0', 'pointer-events-none');
+        nav.classList.remove('opacity-100', 'pointer-events-auto', 'header-visible');
+      }
+    }
+    lastScrollY = scrollY;
+  };
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+
+  // Mobile menu
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileMenuOpen = document.getElementById('mobile-menu-open');
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
+  const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+
+  const openMenu = () => mobileMenu?.classList.remove('hidden');
+  const closeMenu = () => mobileMenu?.classList.add('hidden');
+
+  mobileMenuOpen?.addEventListener('click', openMenu);
+  mobileMenuClose?.addEventListener('click', closeMenu);
+  mobileMenuBackdrop?.addEventListener('click', closeMenu);
+  document.querySelectorAll('.nav-mobile-link').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Language switcher
+  const langToggle = document.getElementById('lang-toggle');
+  const langLabel = document.getElementById('lang-label');
+  let currentLang = localStorage.getItem('lang') || 'en';
+
+  function setLanguage(lang: string) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    if (langLabel) langLabel.textContent = lang.toUpperCase();
+    document.documentElement.lang = lang;
+
+    // Update all translatable elements
+    document.querySelectorAll('[data-en]').forEach(el => {
+      const text = el.getAttribute(`data-${lang}`);
+      if (text) el.textContent = text;
+    });
+
+    // Update all translatable HTML elements
+    document.querySelectorAll('[data-en-html]').forEach(el => {
+      const html = el.getAttribute(`data-${lang}-html`);
+      if (html) el.innerHTML = html;
+    });
+
+    // Dispatch custom event for components that need it
+    window.dispatchEvent(new CustomEvent('langchange', { detail: { lang } }));
+  }
+
+  // Initialize language
+  setLanguage(currentLang);
+
+  langToggle?.addEventListener('click', () => {
+    setLanguage(currentLang === 'en' ? 'es' : 'en');
+  });
+</script>
