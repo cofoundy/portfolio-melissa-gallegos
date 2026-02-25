@@ -1,60 +1,88 @@
 ---
 import { siteConfig } from "../config";
-const { approach } = siteConfig;
+const { approach, colors } = siteConfig;
 const pillars = approach.pillars;
 
 const icons: Record<string, string> = {
-  eye: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>`,
-  shield: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
-  compass: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>`,
-  heart: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>`,
+  eye: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  shield: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  compass: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>`,
+  heart: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>`,
 };
 ---
 
-<section id="approach" class="py-20 md:py-28 bg-[var(--color-surface)]">
+<!-- Shimmer divider -->
+<div class="w-full h-1 bar-shimmer"></div>
+
+<section id="approach" class="py-24 md:py-32 bg-[var(--color-surface)]">
   <div class="max-w-5xl mx-auto px-6">
-    <h2 class="reveal font-heading text-3xl md:text-4xl font-bold text-[var(--color-primary-dark)] text-center" data-en="My Approach" data-es="Mi Enfoque">
+    <!-- Section header -->
+    <div class="text-center mb-6">
+      <span class="reveal text-xs font-body font-semibold tracking-[0.2em] uppercase text-[var(--color-sage)]" data-en="Methodology" data-es="Metodología">Methodology</span>
+    </div>
+    <h2 class="reveal font-accent text-4xl md:text-5xl font-semibold text-[var(--color-primary-dark)] text-center leading-tight" data-en="My Approach" data-es="Mi Enfoque">
       My Approach
     </h2>
-    <div class="w-16 h-1 bg-[var(--color-accent)] mx-auto mt-4 rounded-full"></div>
+    <div class="flex items-center justify-center gap-2 mt-5">
+      <div class="w-12 h-1 rounded-full bg-[var(--color-accent)]"></div>
+      <div class="w-3 h-3 rounded-full bg-[var(--color-accent)] opacity-40"></div>
+      <div class="w-12 h-1 rounded-full bg-[var(--color-accent)]"></div>
+    </div>
 
-    <p class="reveal stagger-1 mt-8 text-center text-[var(--color-primary)] font-body text-base md:text-lg max-w-2xl mx-auto leading-relaxed" data-en={approach.intro.en} data-es={approach.intro.es}>
+    <p class="reveal stagger-1 mt-10 text-center text-[var(--color-primary)] font-body text-base md:text-lg max-w-2xl mx-auto leading-relaxed" data-en={approach.intro.en} data-es={approach.intro.es}>
       {approach.intro.en}
     </p>
 
-    <!-- Pillars Grid -->
-    <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10 max-w-3xl mx-auto">
-      {pillars.map((pillar, i) => (
-        <div class={`reveal-scale stagger-${i + 1} group relative bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 border border-[var(--color-sage)]/20`}>
-          <!-- Icon -->
-          <div class="w-14 h-14 rounded-xl bg-[var(--color-sage)]/15 flex items-center justify-center text-[var(--color-sage)] mb-5 group-hover:bg-[var(--color-sage)]/25 transition-colors">
-            <Fragment set:html={icons[pillar.icon]} />
+    <!-- Pillars with center connection -->
+    <div class="mt-20 relative">
+      <!-- Center connecting element (desktop) -->
+      <div class="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+        <div class="w-20 h-20 rounded-full bg-white shadow-xl flex items-center justify-center border-2 border-[var(--color-accent)]/30">
+          <div class="w-10 h-10 rounded-full bg-[var(--color-accent)]/10 flex items-center justify-center">
+            <div class="w-4 h-4 rounded-full bg-[var(--color-accent)]"></div>
           </div>
-
-          <!-- Title -->
-          <h3 class="font-heading text-xl font-bold text-[var(--color-primary-dark)]" data-en={pillar.title.en} data-es={pillar.title.es}>
-            {pillar.title.en}
-          </h3>
-
-          <!-- Description -->
-          <p class="mt-3 text-sm text-[var(--color-primary-light)] font-body leading-relaxed" data-en={pillar.description.en} data-es={pillar.description.es}>
-            {pillar.description.en}
-          </p>
-
-          <!-- Decorative dot -->
-          <div class="absolute top-4 right-4 w-2 h-2 rounded-full bg-[var(--color-sage)]/40"></div>
         </div>
-      ))}
-    </div>
+      </div>
 
-    <!-- Connecting visual (desktop only) -->
-    <div class="hidden md:flex justify-center mt-8">
-      <svg width="200" height="40" viewBox="0 0 200 40" fill="none" class="pillar-connector">
-        <path d="M20 20 H180" stroke="var(--color-sage)" stroke-width="1" stroke-dasharray="4 4" opacity="0.4"/>
-        <circle cx="20" cy="20" r="4" fill="var(--color-sage)" opacity="0.3"/>
-        <circle cx="100" cy="20" r="4" fill="var(--color-accent)" opacity="0.5"/>
-        <circle cx="180" cy="20" r="4" fill="var(--color-sage)" opacity="0.3"/>
+      <!-- SVG connecting lines (desktop) -->
+      <svg class="hidden md:block absolute inset-0 w-full h-full pointer-events-none z-0" preserveAspectRatio="none">
+        <line x1="25%" y1="30%" x2="50%" y2="50%" stroke="var(--color-sage)" stroke-width="1" stroke-dasharray="6 4" opacity="0.3" class="approach-line"/>
+        <line x1="75%" y1="30%" x2="50%" y2="50%" stroke="var(--color-sage)" stroke-width="1" stroke-dasharray="6 4" opacity="0.3" class="approach-line"/>
+        <line x1="25%" y1="70%" x2="50%" y2="50%" stroke="var(--color-sage)" stroke-width="1" stroke-dasharray="6 4" opacity="0.3" class="approach-line"/>
+        <line x1="75%" y1="70%" x2="50%" y2="50%" stroke="var(--color-sage)" stroke-width="1" stroke-dasharray="6 4" opacity="0.3" class="approach-line"/>
       </svg>
+
+      <!-- Pillars Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12 relative z-1">
+        {pillars.map((pillar, i) => (
+          <div class={`reveal-scale stagger-${i + 1} group relative`}>
+            <div class="bg-white rounded-2xl p-8 md:p-10 shadow-sm hover:shadow-xl transition-all duration-500 border border-[var(--color-sage)]/15 h-full">
+              <!-- Number badge -->
+              <div class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-[var(--color-accent)] text-white text-xs font-bold flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
+                {String(i + 1).padStart(2, '0')}
+              </div>
+
+              <!-- Icon -->
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[var(--color-sage)]/20 to-[var(--color-sage)]/5 flex items-center justify-center text-[var(--color-sage)] mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Fragment set:html={icons[pillar.icon]} />
+              </div>
+
+              <!-- Title -->
+              <h3 class="font-accent text-2xl font-semibold text-[var(--color-primary-dark)]" data-en={pillar.title.en} data-es={pillar.title.es}>
+                {pillar.title.en}
+              </h3>
+
+              <!-- Accent line -->
+              <div class="w-8 h-0.5 rounded-full bg-[var(--color-accent)] mt-3 mb-4 group-hover:w-16 transition-all duration-500"></div>
+
+              <!-- Description -->
+              <p class="text-sm md:text-base text-[var(--color-primary-light)] font-body leading-relaxed" data-en={pillar.description.en} data-es={pillar.description.es}>
+                {pillar.description.en}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 </section>

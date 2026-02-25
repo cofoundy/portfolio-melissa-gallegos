@@ -1,69 +1,87 @@
 ---
 import { siteConfig } from "../config";
-const { name, title, tagline, stats, social } = siteConfig;
+const { name, title, tagline, stats, social, colors } = siteConfig;
 ---
 
-<section id="hero" class="min-h-screen flex items-center bg-[var(--color-surface-light)] relative overflow-hidden">
-  <!-- Subtle decorative circles -->
-  <div class="absolute top-20 right-10 w-64 h-64 rounded-full bg-[var(--color-sage)] opacity-[0.06] blur-3xl"></div>
-  <div class="absolute bottom-20 left-10 w-48 h-48 rounded-full bg-[var(--color-accent)] opacity-[0.05] blur-3xl"></div>
+<!-- Shimmer Bar -->
+<div class="w-full h-2 bar-shimmer"></div>
 
-  <div class="max-w-6xl mx-auto px-6 py-20 md:py-28 w-full">
-    <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
-      <!-- Photo -->
-      <div class="hero-photo flex-shrink-0">
-        <div class="w-56 h-56 md:w-72 md:h-72 rounded-2xl overflow-hidden shadow-xl ring-4 ring-white/80">
-          <img
-            src="/profile.jpg"
-            alt={name}
-            class="w-full h-full object-cover object-top"
-            loading="eager"
-          />
+<section id="hero" class="min-h-screen flex items-center bg-[var(--color-surface-light)] relative overflow-hidden">
+  <!-- Decorative background blurs -->
+  <div class="absolute top-20 right-10 w-80 h-80 rounded-full bg-[var(--color-sage)] opacity-[0.07] blur-3xl"></div>
+  <div class="absolute bottom-10 left-10 w-64 h-64 rounded-full bg-[var(--color-accent)] opacity-[0.05] blur-3xl"></div>
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[var(--color-primary)] opacity-[0.02] blur-3xl"></div>
+
+  <div class="max-w-6xl mx-auto px-6 py-24 md:py-32 w-full">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+
+      <!-- Photo (order-1 mobile, order-2 desktop) -->
+      <div class="md:col-span-5 flex justify-center md:order-1 order-1">
+        <div class="hero-photo relative">
+          <!-- Gradient glow behind photo -->
+          <div class="absolute -inset-4 rounded-3xl opacity-60 blur-xl" style={`background: linear-gradient(135deg, ${colors.primary}20 0%, ${colors.accent}20 50%, ${colors.sage}20 100%)`}></div>
+          <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden shadow-2xl ring-2 ring-white/60">
+            <img
+              src="/profile.jpg"
+              alt={name}
+              class="w-full h-full object-cover object-top"
+              loading="eager"
+            />
+            <!-- Subtle overlay gradient -->
+            <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-primary-dark)]/10 to-transparent"></div>
+          </div>
         </div>
       </div>
 
-      <!-- Content -->
-      <div class="text-center md:text-left flex-1">
-        <h1 class="hero-title font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-primary-dark)] leading-tight tracking-tight">
-          {name.split(' ').slice(0, 1)}<br class="hidden md:block" />
-          <span class="text-[var(--color-primary-light)]">{name.split(' ').slice(1).join(' ')}</span>
-        </h1>
-
-        <p class="hero-subtitle mt-4 text-lg md:text-xl text-[var(--color-primary)] font-body font-medium" data-en={title.en} data-es={title.es}>
+      <!-- Content (order-2 mobile, order-1 desktop) -->
+      <div class="md:col-span-7 text-center md:text-left md:order-2 order-2">
+        <p class="hero-subtitle text-sm md:text-base font-body font-semibold tracking-[0.15em] uppercase text-[var(--color-accent)] mb-4" data-en={title.en} data-es={title.es}>
           {title.en}
         </p>
 
-        <p class="hero-description mt-4 text-base md:text-lg text-[var(--color-primary-light)] font-body italic max-w-lg" data-en={tagline.en} data-es={tagline.es}>
+        <h1 class="hero-title text-5xl md:text-6xl lg:text-7xl font-bold text-[var(--color-primary-dark)] leading-[1.05] tracking-tight" style="font-family: 'Cormorant', serif;">
+          {name.split(' ')[0]}<br />
+          <span class="text-[var(--color-primary)]">{name.split(' ').slice(1).join(' ')}</span>
+        </h1>
+
+        <!-- Accent separator -->
+        <div class="hero-description flex items-center gap-3 mt-6 justify-center md:justify-start">
+          <div class="w-12 h-1 rounded-full bg-[var(--color-accent)]"></div>
+          <div class="w-6 h-1 rounded-full bg-[var(--color-sage)]"></div>
+        </div>
+
+        <p class="hero-description mt-6 text-lg md:text-xl text-[var(--color-primary-light)] font-accent italic max-w-lg mx-auto md:mx-0" data-en={`"${tagline.en}"`} data-es={`"${tagline.es}"`}>
           "{tagline.en}"
         </p>
 
         <!-- CTA + Social -->
-        <div class="hero-cta mt-8 flex flex-col sm:flex-row items-center gap-4 md:justify-start justify-center">
+        <div class="hero-cta mt-10 flex flex-col sm:flex-row items-center gap-4 md:justify-start justify-center">
           <a
             href="#contact"
-            class="btn-hover inline-flex items-center gap-2 bg-[var(--color-accent)] text-white font-body font-semibold px-8 py-3.5 rounded-full shadow-lg hover:shadow-xl transition-all text-sm tracking-wide"
+            class="btn-hover group inline-flex items-center gap-2 bg-[var(--color-accent)] text-white font-body font-semibold px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition-all text-sm tracking-wider uppercase"
             data-en="Let's Connect" data-es="Conectemos"
           >
-            Let's Connect
+            <span>Let's Connect</span>
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
           {social.linkedin && (
-            <a href={social.linkedin} target="_blank" rel="noopener" class="icon-hover inline-flex items-center justify-center w-11 h-11 rounded-full border-2 border-[var(--color-primary-light)]/30 text-[var(--color-primary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors" aria-label="LinkedIn">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            <a href={social.linkedin} target="_blank" rel="noopener" class="icon-hover inline-flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-md text-[var(--color-primary)] hover:text-[var(--color-accent)] transition-colors" aria-label="LinkedIn">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
             </a>
           )}
-          <a href={`mailto:${social.email}`} class="icon-hover inline-flex items-center justify-center w-11 h-11 rounded-full border-2 border-[var(--color-primary-light)]/30 text-[var(--color-primary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors" aria-label="Email">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
+          <a href={`mailto:${social.email}`} class="icon-hover inline-flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-md text-[var(--color-primary)] hover:text-[var(--color-accent)] transition-colors" aria-label="Email">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
           </a>
         </div>
       </div>
     </div>
 
     <!-- Stats Bar -->
-    <div class="hero-stats mt-14 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto md:mx-0">
+    <div class="hero-stats mt-20 py-8 px-8 rounded-2xl grid grid-cols-2 md:grid-cols-4 gap-6" style={`background-color: ${colors.primaryDark}08; border: 1px solid ${colors.primaryDark}12`}>
       {stats.map((stat, i) => (
-        <div class={`text-center md:text-left stagger-${i + 1}`}>
-          <div class="text-2xl md:text-3xl font-heading font-bold text-[var(--color-accent)]">{stat.value}</div>
-          <div class="text-xs md:text-sm text-[var(--color-primary-light)] font-body mt-1 uppercase tracking-wider" data-en={stat.label.en} data-es={stat.label.es}>{stat.label.en}</div>
+        <div class={`text-center stagger-${i + 1}`}>
+          <div class="text-3xl md:text-4xl font-bold text-[var(--color-accent)]" style="font-family: 'Cormorant', serif; font-weight: 700;">{stat.value}</div>
+          <div class="text-xs md:text-sm text-[var(--color-primary-light)] font-body mt-2 uppercase tracking-[0.12em]" data-en={stat.label.en} data-es={stat.label.es}>{stat.label.en}</div>
         </div>
       ))}
     </div>
