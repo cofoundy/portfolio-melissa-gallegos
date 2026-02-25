@@ -2,6 +2,15 @@
 import { siteConfig } from "../config";
 ---
 
+<!-- Fixed Language Switcher (visible at top, hides when floating nav appears) -->
+<div id="hero-lang-switcher" class="fixed top-5 right-5 z-40 transition-all duration-300">
+  <button id="hero-lang-toggle" class="flex items-center gap-2 bg-white/90 backdrop-blur-md rounded-full px-4 py-2 shadow-lg border border-gray-100 text-sm font-medium text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-dark)] hover:text-white transition-colors" aria-label="Toggle language">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+    <span id="hero-lang-label">EN</span>
+    <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5l3 3 3-3"/></svg>
+  </button>
+</div>
+
 <!-- Mobile Menu Overlay -->
 <div id="mobile-menu" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true">
   <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="mobile-menu-backdrop"></div>
@@ -15,10 +24,18 @@ import { siteConfig } from "../config";
     <a href="#journey" class="nav-mobile-link text-lg font-medium text-[var(--color-primary-dark)] hover:text-[var(--color-accent)] transition-colors" data-en="Journey" data-es="Trayectoria">Journey</a>
     <a href="#credentials" class="nav-mobile-link text-lg font-medium text-[var(--color-primary-dark)] hover:text-[var(--color-accent)] transition-colors" data-en="Credentials" data-es="Credenciales">Credentials</a>
     <a href="#contact" class="nav-mobile-link text-lg font-medium text-[var(--color-accent)] hover:opacity-80 transition-opacity" data-en="Contact" data-es="Contacto">Contact</a>
+
+    <!-- Language option in mobile menu -->
+    <div class="mt-auto pt-6 border-t border-[var(--color-primary-light)]/10">
+      <button id="mobile-lang-toggle" class="flex items-center gap-2 text-sm font-medium text-[var(--color-primary)] hover:text-[var(--color-accent)] transition-colors">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        <span id="mobile-lang-text" data-en="Switch to Spanish" data-es="Cambiar a Inglés">Switch to Spanish</span>
+      </button>
+    </div>
   </nav>
 </div>
 
-<!-- Floating Nav -->
+<!-- Floating Nav (appears on scroll) -->
 <header id="main-nav" class="fixed top-4 left-1/2 -translate-x-1/2 z-40 opacity-0 pointer-events-none transition-all duration-300">
   <div class="bg-white/90 backdrop-blur-md rounded-full px-6 py-3 shadow-lg border border-gray-100 flex items-center gap-6">
     <span class="font-heading font-semibold text-[var(--color-primary-dark)] text-sm tracking-wide hidden sm:block">MGA</span>
@@ -32,7 +49,7 @@ import { siteConfig } from "../config";
       <a href="#contact" class="nav-link text-sm font-medium text-[var(--color-accent)] hover:opacity-80 transition-opacity" data-en="Contact" data-es="Contacto">Contact</a>
     </nav>
 
-    <!-- Language Switcher -->
+    <!-- Language Switcher (in floating nav) -->
     <button id="lang-toggle" class="flex items-center gap-1 bg-[var(--color-surface)] rounded-full px-3 py-1.5 text-xs font-medium text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-dark)] hover:text-white transition-colors" aria-label="Toggle language">
       <span id="lang-label">EN</span>
       <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5l3 3 3-3"/></svg>
@@ -46,22 +63,25 @@ import { siteConfig } from "../config";
 </header>
 
 <script>
-  // Floating nav visibility
+  // Floating nav visibility + hero lang switcher sync
   const nav = document.getElementById('main-nav');
-  let lastScrollY = 0;
+  const heroLangSwitcher = document.getElementById('hero-lang-switcher');
 
   const handleScroll = () => {
     const scrollY = window.scrollY;
-    if (nav) {
+    if (nav && heroLangSwitcher) {
       if (scrollY > 400) {
         nav.classList.remove('opacity-0', 'pointer-events-none');
         nav.classList.add('opacity-100', 'pointer-events-auto', 'header-visible');
+        // Hide hero lang switcher when floating nav is visible
+        heroLangSwitcher.classList.add('opacity-0', 'pointer-events-none');
       } else {
         nav.classList.add('opacity-0', 'pointer-events-none');
         nav.classList.remove('opacity-100', 'pointer-events-auto', 'header-visible');
+        // Show hero lang switcher
+        heroLangSwitcher.classList.remove('opacity-0', 'pointer-events-none');
       }
     }
-    lastScrollY = scrollY;
   };
 
   window.addEventListener('scroll', handleScroll, { passive: true });
@@ -82,18 +102,26 @@ import { siteConfig } from "../config";
     link.addEventListener('click', closeMenu);
   });
 
-  // Language switcher
+  // Language switcher — all 4 toggle buttons synced
   const langToggle = document.getElementById('lang-toggle');
   const langLabel = document.getElementById('lang-label');
+  const heroLangToggle = document.getElementById('hero-lang-toggle');
+  const heroLangLabel = document.getElementById('hero-lang-label');
+  const mobileLangToggle = document.getElementById('mobile-lang-toggle');
+  const mobileLangText = document.getElementById('mobile-lang-text');
   let currentLang = localStorage.getItem('lang') || 'en';
 
   function setLanguage(lang: string) {
     currentLang = lang;
     localStorage.setItem('lang', lang);
-    if (langLabel) langLabel.textContent = lang.toUpperCase();
     document.documentElement.lang = lang;
 
-    // Update all translatable elements
+    // Sync all lang labels
+    const label = lang.toUpperCase();
+    if (langLabel) langLabel.textContent = label;
+    if (heroLangLabel) heroLangLabel.textContent = label;
+
+    // Update all translatable text elements
     document.querySelectorAll('[data-en]').forEach(el => {
       const text = el.getAttribute(`data-${lang}`);
       if (text) el.textContent = text;
@@ -112,7 +140,10 @@ import { siteConfig } from "../config";
   // Initialize language
   setLanguage(currentLang);
 
-  langToggle?.addEventListener('click', () => {
-    setLanguage(currentLang === 'en' ? 'es' : 'en');
-  });
+  // All toggle buttons call the same function
+  const toggle = () => setLanguage(currentLang === 'en' ? 'es' : 'en');
+
+  langToggle?.addEventListener('click', toggle);
+  heroLangToggle?.addEventListener('click', toggle);
+  mobileLangToggle?.addEventListener('click', toggle);
 </script>
